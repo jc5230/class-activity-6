@@ -3,3 +3,5 @@
 Clustering exercise
 
 Instructions can be found in the Rmd file.
+
+

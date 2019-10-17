@@ -6,17 +6,41 @@ output: html_document
 ---
 # Data Management
 ```{r}
-#Load data
-DF1 <- read.csv("HUDK405019-clustering.csv", header = TRUE)
+library(dplyr)
 
-#Convert the index numbers of the data fram into the student names.
-  
+# Format Names
+# https://stackoverflow.com/questions/6364783/capitalize-the-first-letter-of-both-words-in-a-two-word-string
+simpleCap <- function(x) {
+  paste(toupper(substring(x, 1,1)), tolower(substring(x, 2)), sep="", collapse="")
+}
+
+# Numeric Data
+numeric <- function(x) {
+  if(!is.numeric(x)){
+    print(x)
+    x <- NA
+    
+  }
+}
+
+#Load data
+table <- read.csv("HUDK405019-clustering.csv", header = TRUE)
+
+#Convert the index numbers of the data frame into the student names.
+table$First.Name <- sapply(table$First.Name, simpleCap)
+table$Last.Name <- sapply(table$Last.Name, simpleCap)
+
+row.names(table) <- paste(table$First.Name,table$Last.Name)
+
 #Wrangle data using dplyr to include only the numerical values.
+table <- table[,c(3:13, 15, 16)]
+table <- data.frame(table)
+table2 <- as.character(table)
 
 #Scale the data so that no variable has undue influence
+#DF2 <- scale(table)
 
-DF2 <- scale(DF2)
- 
+
 ```
 
 # Find lattitudes & longitudes for cities
@@ -25,6 +49,7 @@ DF2 <- scale(DF2)
 
 #install.packages("ggmap")
 #install.packages("rgdal")
+#install.packages("tmaptools")
 #library(ggmap)
 #library(tmaptools)
 

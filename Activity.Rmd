@@ -1,0 +1,19 @@
+---
+title: "Activity"
+output: html_document
+---
+
+## R Markdown
+
+```{r}
+# import table
+table <- read.csv('HUDK405019-clustering.csv', stringsAsFactors=FALSE)
+
+# correct data
+table[1,15] <- 34.0522
+table[1,16] <- 118.2437
+table[1,17] <- 'N'
+table[1,18] <- 'W'
+
+```
+
